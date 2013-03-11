@@ -1,0 +1,37 @@
+location ~ ^/(app|includes|pkginfo|var|report|downloader)/ {
+	deny all;
+}
+
+location / {
+	index index.php;
+        try_files $uri $uri/ @handler;
+	expires 30d;
+}
+
+location /skin/m/ {
+	rewrite ^/skin/m/([0-9]+)(/.*\.(js|css))$ /lib/minify/m.php?f=$2&d=$1 last;
+}
+
+location /lib/minify/ {
+	allow all;
+}
+
+location /. {
+	return 404;
+}
+
+location @handler {
+	rewrite / /index.php;
+}
+
+location ~* \.(gif|jpg|jpeg|png|wmv|avi|mpg|mpeg|mp4|mp3|swf|ico|flv)$ {
+        open_file_cache_valid 120m;
+        expires max;
+	add_header Cache-Control public;
+        open_file_cache max=1000 inactive=20s;
+}
+
+location ~ \.php/ {
+	rewrite ^(.*\.php)/ $1 last;
+}
+
