@@ -99,7 +99,7 @@ then
   rm /etc/php5/fpm/pool.d/www.conf
 fi
 
-if [ $REDIS == "1" && $PHP == "1" ]; then
+if [ $REDIS == "1" -a $PHP == "1" ]; then
   wget -O /root/phpredis.zip https://github.com/nicolasff/phpredis/archive/master.zip
   cd /root
   unzip phpredis.zip
