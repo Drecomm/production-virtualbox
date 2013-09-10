@@ -88,7 +88,7 @@ fi
 
 apt-get update
 apt-get dist-upgrade -y
-apt-get install -y "$APPS make gcc unrar git-core bash-completion git iotop mytop unzip"
+apt-get install -y $APPS make gcc unrar git-core bash-completion git iotop mytop unzip
 apt-get autoremove
 
 locale-gen
