@@ -99,6 +99,14 @@ then
   rm /etc/php5/fpm/pool.d/www.conf
 fi
 
+if [ $PHP == "1" ]; then
+  service php5-fpm restart
+fi
+
+if [ $NGINX == "1" ]; then
+  service nginx start
+fi
+
 if [ $REDIS == "1" -a $PHP == "1" ]; then
   wget -O /root/phpredis.zip https://github.com/nicolasff/phpredis/archive/master.zip
   cd /root

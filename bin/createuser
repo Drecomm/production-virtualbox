@@ -17,6 +17,7 @@ if [ $USERNAME != "" ]; then
     read FPM
     if [ $FPM == "1" ]; then
       mv /home/$USERNAME/conf/php-fpm.conf.dist /home/$USERNAME/conf/php-fpm.conf
+      service php5-fpm restart
     fi
     echo "Created user $USERNAME with password $PASSWORD"
   fi
