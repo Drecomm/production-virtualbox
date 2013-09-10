@@ -7,9 +7,7 @@ then
   echo 'deb http://repo.percona.com/apt quantal main' > $percona
   echo 'deb-src http://repo.percona.com/apt quantal main' >> $percona
 
-  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 94558F59
-  gpg --keyserver  hkp://keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
-  gpg -a --export CD2EFD2A | sudo apt-key add -
+  apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
 fi
 
 apt-get update
