@@ -66,18 +66,49 @@ if [ $POSTFIX == "1" ]; then
   APPS="$APPS postfix"
 fi
 
+echo "Install Memcached?"
+read MEMCACHED
+
+if [ $MEMCACHED == "1" ]; then
+  APPS="$APPS memcached"
+  if [ $PHP == "1" ]; then
+    APPS="$APPS php5-memcache"
+  fi
+fi
+
+echo "Install Redis?"
+read REDIS
+
+if [ $REDIS == "1" ]; then
+  APPS="$APPS redis-server"
+  add-apt-repository -y ppa:chris-lea/redis-server
+fi
+
+
 apt-get update
 apt-get dist-upgrade -y
-apt-get install $APPS
+apt-get install -y "$APPS python-software-properties software-properties-common make gcc unrar git-core bash-completion git iotop mytop unzip
 apt-get autoremove
 
 locale-gen
 
-apt-get install -y python-software-properties software-properties-common make gcc postfix unrar git-core bash-completion git iotop mytop memcached memcached redis-server unzip
+apt-get install -y python-software-properties software-properties-common make gcc unrar git-core bash-completion git iotop mytop redis-server unzip
 
 if [ -f /etc/php5/fpm/pool.d/www.conf ]
 then
   rm /etc/php5/fpm/pool.d/www.conf
+fi
+
+if [ $REDIS == "1" && $PHP == "1" ]; then
+  wget -O /root/phpredis.zip https://github.com/nicolasff/phpredis/archive/master.zip
+  cd /root
+  unzip phpredis.zip
+  cd phpredis-master
+  phpize
+  ./configure
+  make && make install
+  echo 'extension=redis.so' > /etc/php5/conf.d/redis.ini
+  service php5-fpm restart
 fi
 
 if [ $MYSQL == "1" ]; then
