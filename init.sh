@@ -35,7 +35,6 @@ if [ $MYSQL == "1" ]; then
     echo "deb-src http://repo.percona.com/apt quantal main" >> $percona
     apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
   fi
-  echo "MySQL root password: $MYSQLPASS"
   APPS="$APPS percona-server-server percona-server-client mysqltuner"
   mkdir -p /etc/mysql/conf.d
   wget -q -O /etc/mysql/my.cnf https://raw.github.com/royklopper/production-virtualbox/master/mysql/my.cnf
@@ -89,7 +88,7 @@ fi
 
 apt-get update
 apt-get dist-upgrade -y
-apt-get install -y "$APPS make gcc unrar git-core bash-completion git iotop mytop unzip
+apt-get install -y "$APPS make gcc unrar git-core bash-completion git iotop mytop unzip"
 apt-get autoremove
 
 locale-gen
@@ -117,4 +116,5 @@ if [ $MYSQL == "1" ]; then
   mysql -e "CREATE FUNCTION fnv_64 RETURNS INTEGER SONAME 'libfnv_udf.so'"
   mysql -e "CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME 'libmurmur_udf.so'"
   mysqladmin -u root password $MYSQLPASS
+  echo "MySQL root password: $MYSQLPASS"
 fi
