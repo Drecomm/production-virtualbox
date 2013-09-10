@@ -6,11 +6,21 @@ function randompass () {
   echo $pass
 }
 
-mkdir -p /etc/skel/conf/sites-enabled
-mkdir /etc/skel/conf/sites-available
-mkdir /etc/skel/public
-mkdir /etc/skel/private
-mkdir /etc/skel/.run
+if [ ! -d /etc/skel/conf/sites-enabled ]; then
+  mkdir -p /etc/skel/conf/sites-enabled
+fi
+if [ ! -d /etc/skel/conf/sites-available ]; then
+  mkdir /etc/skel/conf/sites-available
+fi
+if [ ! -d /etc/skel/public ]; then
+  mkdir /etc/skel/public
+fi
+if [ ! -d /etc/skel/private ]; then
+  mkdir /etc/skel/private
+fi
+if [ ! -d /etc/skel/.run ]; then
+  mkdir /etc/skel/.run
+fi
 
 apt-get install -y python-software-properties software-properties-common
 
