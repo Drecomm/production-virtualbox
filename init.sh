@@ -11,6 +11,7 @@ then
   gpg --keyserver  hkp://keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
   gpg -a --export CD2EFD2A | sudo apt-key add -
 fi
+
 apt-get update
 apt-get dist-upgrade -y
 apt-get autoremove
@@ -19,7 +20,7 @@ apt-get install -y python-software-properties software-properties-common \
                    make gcc postfix unrar git-core bash-completion git iotop mytop nginx-full memcached \
                    php5-fpm php5-cli php5-memcache php5-xsl php5-gd php5-curl php5-xmlrpc php5-imagick \
                    php5-xcache php5-mysqlnd php-pear php5-mcrypt php5-mhash inotify-tools \
-                   percona-server-server percona-server-client
+                   percona-server-server percona-server-client memcached redis-server
 
 wget -O /etc/nginx/nginx.conf https://raw.github.com/royklopper/production-virtualbox/master/nginx/nginx.conf
 wget -O /etc/nginx/magento https://raw.github.com/royklopper/production-virtualbox/master/nginx/magento
