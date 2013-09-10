@@ -1,4 +1,4 @@
-#!/bin/bash
+locale-gen nl_NL.UTF-8#!/bin/bash
 APPS=""
 
 function randompass () {
@@ -91,6 +91,7 @@ apt-get install -y "$APPS python-software-properties software-properties-common 
 apt-get autoremove
 
 locale-gen
+locale-gen nl_NL.UTF-8
 
 apt-get install -y python-software-properties software-properties-common make gcc unrar git-core bash-completion git iotop mytop redis-server unzip
 

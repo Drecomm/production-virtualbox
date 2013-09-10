@@ -10,14 +10,16 @@ echo "Enter username"
 read USERNAME
 
 if [ $USERNAME != "" ]; then
-  /usr/sbin/useradd -p \`openssl passwd -1 $PASSWORD\` -k /etc/skel -s /bin/bash -d /home/$USERNAME $USERNAME
-  sed -i "s/USERNAME/$USERNAME/" /home/$USERNAME/conf/php-fpm.conf.dist
-  echo "Enable PHP-FPM?"
-  read FPM
-  if [ $FPM == "1" ]; then
-    mv /home/$USERNAME/conf/php-fpm.conf.dist /home/$USERNAME/conf/php-fpm.conf
+  if [ ! -d /home/$USERNAME ]; then
+    /usr/sbin/useradd -p \`openssl passwd -1 $PASSWORD\` -k /etc/skel -s /bin/bash -d /home/$USERNAME $USERNAME
+    sed -i "s/USERNAME/$USERNAME/" /home/$USERNAME/conf/php-fpm.conf.dist
+    echo "Enable PHP-FPM?"
+    read FPM
+    if [ $FPM == "1" ]; then
+      mv /home/$USERNAME/conf/php-fpm.conf.dist /home/$USERNAME/conf/php-fpm.conf
+    fi
+    echo "Created user $USERNAME with password $PASSWORD"
   fi
-  echo "Created user $USERNAME with password $PASSWORD"
 fi
 
 if [ -f "/etc/mysql/my.cnf" ]; then
