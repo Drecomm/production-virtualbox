@@ -12,7 +12,7 @@ mkdir /etc/skel/public
 mkdir /etc/skel/private
 mkdir /etc/skel/.run
 
-apt-get install python-software-properties software-properties-common
+apt-get install -y python-software-properties software-properties-common
 
 if [ ! -f "/sbin/createuser" ]; then
   wget -q -O /sbin/createuser https://raw.github.com/royklopper/production-virtualbox/master/bin/createuser
