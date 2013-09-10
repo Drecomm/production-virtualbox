@@ -11,7 +11,7 @@ read USERNAME
 
 if [ $USERNAME != "" ]; then
   if [ ! -d /home/$USERNAME ]; then
-    /usr/sbin/useradd -p \`openssl passwd -1 $PASSWORD\` -k /etc/skel -s /bin/bash -d /home/$USERNAME $USERNAME
+    /usr/sbin/useradd -p `openssl passwd -1 $PASSWORD` -k /etc/skel -s /bin/bash -d /home/$USERNAME $USERNAME
     sed -i "s/USERNAME/$USERNAME/" /home/$USERNAME/conf/php-fpm.conf.dist
     echo "Enable PHP-FPM?"
     read FPM
