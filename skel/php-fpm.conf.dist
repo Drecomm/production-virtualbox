@@ -1,10 +1,10 @@
-[user]
-listen = 127.0.0.1:9200
+[USERNAME]
+listen = /home/USERNAME/.run/php-fpm.sock
 listen.backlog = -1
 listen.allowed_clients = 127.0.0.1
 
-user = user
-group = user
+user = USERNAME
+group = USERNAME
 
 pm = dynamic
 pm.max_children = 12
@@ -17,14 +17,8 @@ request_slowlog_timeout = 0
 
 chdir = /
 
-;env[HOSTNAME] = $HOSTNAME
-;env[PATH] = /usr/local/bin:/usr/bin:/bin
-;env[TMP] = /tmp
-;env[TMPDIR] = /tmp
-;env[TEMP] = /tmp
-
 php_admin_value[memory_limit] = 128M
 php_admin_value[post_max_size] = 128M
 php_admin_value[post_max_vars] = 64000
 php_admin_value[max_execution_time] = 3600
-
+php_admin_value[realpath_cache_size] = 16m

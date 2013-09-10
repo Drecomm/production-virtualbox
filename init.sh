@@ -15,10 +15,11 @@ apt-get update
 apt-get dist-upgrade -y
 apt-get autoremove
 
-apt-get install -y python-software-properties software-properties-common
-apt-get install -y make gcc postfix unrar git-core bash-completion subversion git iotop mytop nginx-full memcached libmysqlclient18
-apt-get install -y php5-fpm php5-cli php5-suhosin php5-xsl php5-gd php5-curl php5-xmlrpc libmagick-dev imagemagick libmagickwand-dev
-apt-get install -y php5-xcache php5-mysqlnd php-pear php5-mcrypt php5-mhash libmcrypt-dev mcrypt php5-dev php5-memcache
+apt-get install -y python-software-properties software-properties-common \
+                   make gcc postfix unrar git-core bash-completion git iotop mytop nginx-full memcached \
+                   php5-fpm php5-cli php5-memcache php5-xsl php5-gd php5-curl php5-xmlrpc php5-imagick \
+                   php5-xcache php5-mysqlnd php-pear php5-mcrypt php5-mhash inotify-tools \
+                   percona-server-server percona-server-client
 
 wget -O /etc/nginx/nginx.conf https://raw.github.com/royklopper/production-virtualbox/master/nginx/nginx.conf
 wget -O /etc/nginx/magento https://raw.github.com/royklopper/production-virtualbox/master/nginx/magento
@@ -28,20 +29,17 @@ wget -O /etc/mysql/conf.d/optimized.cnf https://raw.github.com/royklopper/produc
 wget -O /etc/sysctl.d/60-user.cnf https://raw.github.com/royklopper/production-virtualbox/master/sysctl/60-user.cnf
 
 mkdir -p /etc/skel/conf/sites-enabled
-mkdir -p /etc/skel/conf/sites-available
-mkdir -p /etc/skel/public
-mkdir -p /etc/skel/private
+mkdir /etc/skel/conf/sites-available
+mkdir /etc/skel/public
+mkdir /etc/skel/private
 
 wget -O /etc/skel/conf/sites-available/domain.conf https://raw.github.com/royklopper/production-virtualbox/master/skel/domain.conf
 wget -O /etc/skel/conf/php-fpm.conf.dist https://raw.github.com/royklopper/production-virtualbox/master/skel/php-fpm.conf.dist
-
 
 if [ -f /etc/php5/fpm/pool.d/www.conf ]
 then
   rm /etc/php5/fpm/pool.d/www.conf
 fi
-
-apt-get install -y percona-server-server percona-server-client
 
 service postfix restart
 service nginx restart
