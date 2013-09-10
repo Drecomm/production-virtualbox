@@ -17,4 +17,18 @@ if [ $USERNAME != "" ]; then
   if [ $FPM == "1" ]; then
     mv /home/$USERNAME/conf/php-fpm.conf.dist /home/$USERNAME/conf/php-fpm.conf
   fi
+  echo "Created user $USERNAME with password $PASSWORD"
+fi
+
+if [ -f "/etc/mysql/my.cnf" ]; then
+  echo "Add MySQL user?"
+  read MYSQL
+  if [ $MYSQL == "1" ]; then
+    echo "Insert MySQL root password"
+    read ROOTPASS
+    MYSQLPASS=`randompass`
+    mysql -uroot -p$ROOTPASS -e "CREATE USER '$USERNAME'@'localhost' IDENTIFIED BY '$MYSQLPASS';
+    mysql -uroot -p$ROOTPASS -e "GRANT ALL PRIVILEGES ON  `$USERNAME\_%` . * TO  '$USERNAME'@'%';
+    echo "Create MySQL user $USERNAME with password $MYSQLPASS"
+  fi
 fi
