@@ -34,7 +34,7 @@ if [ $MYSQL == "1" ]; then
     apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
   fi
   echo "MySQL root password: $MYSQLPASS"
-  APPS="$APPS percona-server-server percona-server-client"
+  APPS="$APPS percona-server-server percona-server-client mysqltuner"
   mkdir /etc/mysql
   wget -O /etc/mysql/my.cnf https://raw.github.com/royklopper/production-virtualbox/master/mysql/my.cnf
   wget -O /etc/mysql/conf.d/optimized.cnf https://raw.github.com/royklopper/production-virtualbox/master/mysql/optimized.cnf
