@@ -29,8 +29,8 @@ if [ -f "/etc/mysql/my.cnf" ]; then
     echo "Insert MySQL root password"
     read ROOTPASS
     MYSQLPASS=`randompass`
-    mysql -uroot -p$ROOTPASS -e "CREATE USER '$USERNAME'@'localhost' IDENTIFIED BY '$MYSQLPASS';
-    mysql -uroot -p$ROOTPASS -e "GRANT ALL PRIVILEGES ON  `$USERNAME\_%` . * TO  '$USERNAME'@'%';
+    mysql -uroot -p$ROOTPASS -e "CREATE USER '$USERNAME'@'localhost' IDENTIFIED BY '$MYSQLPASS'";
+    mysql -uroot -p$ROOTPASS -e "GRANT ALL PRIVILEGES ON \`$USERNAME\_%\`.* TO '$USERNAME'@'%'";
     echo "Create MySQL user $USERNAME with password $MYSQLPASS"
   fi
 fi
