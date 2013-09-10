@@ -12,12 +12,14 @@ mkdir /etc/skel/public
 mkdir /etc/skel/private
 mkdir /etc/skel/.run
 
+apt-get install python-software-properties software-properties-common
+
 if [ ! -f "/sbin/createuser" ]; then
-  wget -O /sbin/createuser https://raw.github.com/royklopper/production-virtualbox/master/bin/createuser
+  wget -q -O /sbin/createuser https://raw.github.com/royklopper/production-virtualbox/master/bin/createuser
   chmod +x /sbin/createuser
 fi
 if [ ! -f "/etc/sysctl.d/60-user.cnf" ]; then
-  wget -O /etc/sysctl.d/60-user.cnf https://raw.github.com/royklopper/production-virtualbox/master/sysctl/60-user.cnf
+  wget -q -O /etc/sysctl.d/60-user.cnf https://raw.github.com/royklopper/production-virtualbox/master/sysctl/60-user.cnf
   sysctl -p
 fi
 
@@ -36,15 +38,15 @@ if [ $MYSQL == "1" ]; then
   echo "MySQL root password: $MYSQLPASS"
   APPS="$APPS percona-server-server percona-server-client mysqltuner"
   mkdir -p /etc/mysql/conf.d
-  wget -O /etc/mysql/my.cnf https://raw.github.com/royklopper/production-virtualbox/master/mysql/my.cnf
-  wget -O /etc/mysql/conf.d/optimized.cnf https://raw.github.com/royklopper/production-virtualbox/master/mysql/optimized.cnf
+  wget -q -O /etc/mysql/my.cnf https://raw.github.com/royklopper/production-virtualbox/master/mysql/my.cnf
+  wget -q -O /etc/mysql/conf.d/optimized.cnf https://raw.github.com/royklopper/production-virtualbox/master/mysql/optimized.cnf
 fi
 
 echo "Install PHP? "
 read PHP
 
 if [ $PHP == "1" ]; then
-  wget -O /etc/skel/conf/php-fpm.conf.dist https://raw.github.com/royklopper/production-virtualbox/master/skel/php-fpm.conf.dist
+  wget -q -O /etc/skel/conf/php-fpm.conf.dist https://raw.github.com/royklopper/production-virtualbox/master/skel/php-fpm.conf.dist
   APPS="$APPS php5-fpm php5-cli php5-memcache php5-xsl php5-gd php5-curl php5-xmlrpc php5-imagick php5-xcache php5-mysqlnd php-pear php5-mcrypt php5-mhash"
 fi
 
@@ -53,9 +55,9 @@ read NGINX
 
 if [ $NGINX == "1" ]; then
   mkdir /etc/nginx
-  wget -O /etc/nginx/nginx.conf https://raw.github.com/royklopper/production-virtualbox/master/nginx/nginx.conf
-  wget -O /etc/nginx/magento https://raw.github.com/royklopper/production-virtualbox/master/nginx/magento
-  wget -O /etc/skel/conf/sites-available/domain.conf https://raw.github.com/royklopper/production-virtualbox/master/skel/domain.conf
+  wget -q -O /etc/nginx/nginx.conf https://raw.github.com/royklopper/production-virtualbox/master/nginx/nginx.conf
+  wget -q -O /etc/nginx/magento https://raw.github.com/royklopper/production-virtualbox/master/nginx/magento
+  wget -q -O /etc/skel/conf/sites-available/domain.conf https://raw.github.com/royklopper/production-virtualbox/master/skel/domain.conf
   APPS="$APPS nginx-full"
 fi
 
@@ -87,13 +89,11 @@ fi
 
 apt-get update
 apt-get dist-upgrade -y
-apt-get install -y "$APPS python-software-properties software-properties-common make gcc unrar git-core bash-completion git iotop mytop unzip
+apt-get install -y "$APPS make gcc unrar git-core bash-completion git iotop mytop unzip
 apt-get autoremove
 
 locale-gen
 locale-gen nl_NL.UTF-8
-
-apt-get install -y python-software-properties software-properties-common make gcc unrar git-core bash-completion git iotop mytop redis-server unzip
 
 if [ -f /etc/php5/fpm/pool.d/www.conf ]
 then
