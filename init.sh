@@ -35,7 +35,7 @@ if [ $MYSQL == "1" ]; then
   fi
   echo "MySQL root password: $MYSQLPASS"
   APPS="$APPS percona-server-server percona-server-client mysqltuner"
-  mkdir /etc/mysql
+  mkdir -p /etc/mysql/conf.d
   wget -O /etc/mysql/my.cnf https://raw.github.com/royklopper/production-virtualbox/master/mysql/my.cnf
   wget -O /etc/mysql/conf.d/optimized.cnf https://raw.github.com/royklopper/production-virtualbox/master/mysql/optimized.cnf
 fi
